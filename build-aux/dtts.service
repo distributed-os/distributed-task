@@ -1,0 +1,17 @@
+[Unit]
+Description=Distributed Task System
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/dtts
+StandardOutput=file:/var/log/dtts.log
+StandardError=file:/var/log/dtts.log
+Restart=always
+RestartSec=5
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

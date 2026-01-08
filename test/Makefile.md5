@@ -1,0 +1,37 @@
+.PHONY: all clean run
+
+CC := gcc
+
+ifeq ($(V),1)
+	Q =
+else
+	Q = @
+endif
+
+CFLAGS := -Wall -Wextra -Wno-unused-function -std=gnu99 -g -O2 \
+	-I../common/include
+
+LDFLAGS := -pthread
+
+TEST_RUNNER := test_md5
+
+TEST_SRCS := ../common/md5.c \
+			 test_md5.c
+TEST_OBJS := $(TEST_SRCS:.c=.o)
+
+all: $(TEST_RUNNER)
+
+$(TEST_RUNNER): $(TEST_OBJS)
+	$(Q) echo "  LD      " $@
+	$(Q) $(CC) -o $@ $(TEST_OBJS) $(LDFLAGS)
+
+%.o: %.c
+	$(Q) echo "  CC      " $@
+	$(Q) $(CC) $(CFLAGS) -c $< -o $@
+
+run: $(TEST_RUNNER)
+	./$(TEST_RUNNER)
+
+clean:
+	$(Q) $(RM) $(TEST_RUNNER)
+	$(Q) $(RM) $(TEST_OBJS)

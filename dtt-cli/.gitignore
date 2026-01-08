@@ -1,0 +1,11 @@
+*.out
+*.so
+*.a
+*.o
+*.o.cmd
+.idea
+/dtt
+/tags
+/GPATH
+/GRTAGS
+/GTAGS
